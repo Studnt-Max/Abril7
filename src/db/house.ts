@@ -1,44 +1,74 @@
 import { House } from "../../types/db/house";
 
-const houseDB = [
-    {id: 1,  nombre: "Prueba",   Descripcion: "Si",  price: 15,  Ubicacion: "Tlaxcala",  Calificacion: 25,   Tamaniodeconstruccion: 79,  Tamaniodeterreno: 34,   Duracion: 8,   Tipo: "Renta" }
-]
+const houseDB: House[] = [
+    { 
+        id: 1,  
+        nombre: "Prueba",   
+        Descripcion: "Si",  
+        price: 15,  
+        Ubicacion: "Tlaxcala",  
+        Calificacion: 25,   
+        Tamaniodeconstruccion: 79,  
+        Tamaniodeterreno: 34,   
+        Duracion: 8,   
+        Tipo: "Renta" 
+    }
+];
 
 class HouseService {
-
-    async getHouses(type:string, minprice:number, maxprice:number): Promise<House[]> {
-        return houseDB;
+    async getHouses(type: string, minprice: number, maxprice: number): Promise<House[]> {
+        return houseDB.filter(house => 
+            house.Tipo === type && 
+            house.price >= minprice && 
+            house.price <= maxprice
+        );
     }
 
-    async getHouseById(id:number): Promise<House>{
-        return houseDB[id];
-    }
-    /*
-    async getPrecio(){
-        return FakeHouse;
+    async getHouseById(id: number): Promise<House> {
+        const house = houseDB.find(house => house.id === id);
+        if (!house) throw new Error("House not found");
+        return house;
     }
 
-    async getUbicacion(){
-
+    async getPrecio(id: number): Promise<number> {
+        const house = await this.getHouseById(id);
+        return house.price;
     }
 
-    async getDescripcion(){
+    async getUbicacion(id: number): Promise<string> {
+        const house = await this.getHouseById(id);
+        return house.Ubicacion;
     }
 
-    async getCalificacion(){
+    async getDescripcion(id: number): Promise<string> {
+        const house = await this.getHouseById(id);
+        return house.Descripcion;
     }
 
-    async getTamConst(){
+    async getCalificacion(id: number): Promise<number> {
+        const house = await this.getHouseById(id);
+        return house.Calificacion;
     }
 
-    async getTamTerr(){
+    async getTamConst(id: number): Promise<number> {
+        const house = await this.getHouseById(id);
+        return house.Tamaniodeconstruccion;
     }
 
-    async getDuracion(){
+    async getTamTerr(id: number): Promise<number> {
+        const house = await this.getHouseById(id);
+        return house.Tamaniodeterreno;
     }
 
-    async getTipo(){
-    }}*/
+    async getDuracion(id: number): Promise<number> {
+        const house = await this.getHouseById(id);
+        return house.Duracion;
+    }
+
+    async getTipo(id: number): Promise<string> {
+        const house = await this.getHouseById(id);
+        return house.Tipo;
+    }
 }
 
 export const houseService = new HouseService();

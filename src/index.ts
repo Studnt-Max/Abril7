@@ -2,11 +2,9 @@ import express from 'express';
 import houseRoutes from './routes/houseRoutes';
 
 const app = express();
-const PORT = 3000;
-
 app.use(express.json());
-app.use('/houses', houseRoutes);
+app.use('/houses', houseRoutes); // Ruta base para todas las operaciones
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+    console.log('Servidor corriendo en http://localhost:3000');
 });

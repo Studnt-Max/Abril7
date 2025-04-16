@@ -1,16 +1,17 @@
-import express, {Request, Response, NextFunction} from 'express';
-import { HouseController } from '../controller/houseController';
+// routes/houseRoutes.ts (versión corregida)
+import express from 'express';
 import { HouseHandler } from '../handler/houseHandler';
-import { houseService } from '../db/house';
+import { HouseController } from '../controller/houseController';
+import { houseService } from '../db/house'; // Usando el mock 
 
 const router = express.Router();
-
-//const fakeService = new houseService();
-
 const houseController = new HouseController(houseService);
 const houseHandler = new HouseHandler(houseController);
 
-router.get('/', houseHandler.getHouses.bind(houseHandler));
+// Rutas para visualización en navegador (GET)
+router.get('/', houseHandler.getHouses.bind(houseHandler)); // Todas las casas
+router.get('/:id', houseHandler.getHouseById.bind(houseHandler)); // Casa por ID
+router.get('/:id/price', houseHandler.getHousePrice.bind(houseHandler)); // Precio de una casa
+router.get('/:id/location', houseHandler.getHouseLocation.bind(houseHandler)); // Ubicación
 
 export default router;
-

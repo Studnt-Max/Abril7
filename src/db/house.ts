@@ -18,7 +18,7 @@ const houseDB: House[] = [
 class HouseService {
     async getHouses(type: string, minprice: number, maxprice: number): Promise<House[]> {
         return houseDB.filter(house => 
-            house.Tipo === type && 
+            (type === "all" || house.Tipo === type) && 
             house.price >= minprice && 
             house.price <= maxprice
         );

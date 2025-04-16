@@ -1,4 +1,3 @@
-// routes/houseRoutes.ts (versión corregida)
 import express from 'express';
 import { HouseHandler } from '../handler/houseHandler';
 import { HouseController } from '../controller/houseController';
